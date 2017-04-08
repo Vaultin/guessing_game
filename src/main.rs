@@ -5,10 +5,29 @@ use std::cmp::Ordering;
 use rand::Rng;
 
 fn main() {
+    let mut x = String::new();
+    let mut y = String::new();
+
     println!("Guess the number!");
 
+    println!("Choose range of number: ");
+    println!("From: ");
+    io::stdin().read_line(&mut x)
+        .expect("Failed to read line");
+    let x: u32 = match x.trim().parse() {
+        Ok(num) => num,
+        Err(_) => panic!("Input a number!"), // TODO: Repeat input with error message.
+    };
+    println!("To: ");
+    io::stdin().read_line(&mut y)
+        .expect("Failed to read line");
+    let y: u32 = match y.trim().parse() {
+        Ok(num) => num,
+        Err(_) => panic!("Input a number!"), // TODO: Repeat input with error message.
+    };
+
     // Generate random number betwen 1 and 100.
-    let secret_number = rand::thread_rng().gen_range(1, 101);
+    let secret_number = rand::thread_rng().gen_range(x, y);
     println!("The secret number is: {}", secret_number);
     let mut tries = 0;
 
