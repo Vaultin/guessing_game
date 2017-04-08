@@ -15,20 +15,20 @@ fn main() {
     println!("From: ");
     io::stdin().read_line(&mut rand_x)
         .expect("Failed to read line");
-    let x: u32 = match rand_x.trim().parse() {
+    let rand_x: u32 = match rand_x.trim().parse() {
         Ok(num) => num,
         Err(_) => panic!("Input a number!"), // TODO: Repeat input with error message.
     };
     println!("To: ");
     io::stdin().read_line(&mut rand_y)
         .expect("Failed to read line");
-    let y: u32 = match rand_y.trim().parse() {
+    let rand_y: u32 = match rand_y.trim().parse() {
         Ok(num) => num,
         Err(_) => panic!("Input a number!"), // TODO: Repeat input with error message.
     };
 
     // Generate random number from player input.
-    let secret_number = rand::thread_rng().gen_range(x, y);
+    let secret_number = rand::thread_rng().gen_range(rand_x, rand_y);
     println!("The secret number is: {}", secret_number);
     let mut tries = 0;
 
