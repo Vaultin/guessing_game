@@ -13,14 +13,16 @@ fn main() {
     // Player input of random number generation.
     println!("Choose range of number: ");
     println!("From: ");
-    io::stdin().read_line(&mut rand_x)
+    io::stdin()
+        .read_line(&mut rand_x)
         .expect("Failed to read line");
     let rand_x: u32 = match rand_x.trim().parse() {
         Ok(num) => num,
         Err(_) => panic!("Input a number!"), // TODO: Repeat input with error message.
     };
     println!("To: ");
-    io::stdin().read_line(&mut rand_y)
+    io::stdin()
+        .read_line(&mut rand_y)
         .expect("Failed to read line");
     let rand_y: u32 = match rand_y.trim().parse() {
         Ok(num) => num,
@@ -28,17 +30,18 @@ fn main() {
     };
 
     // Generate random number from player input.
-    let secret_number = rand::thread_rng().gen_range(rand_x, rand_y);
-    println!("The secret number is: {}", secret_number);
+    let random_number = rand::thread_rng().gen_range(rand_x, rand_y);
+    // println!("The secret number is: {}", random_number);
     let mut tries = 0;
 
     loop {
-        println!("Tries: {}", tries);
+        println!("Tries: {}", &tries);
         println!("Please input your guess.");
 
         let mut guess = String::new();
 
-        io::stdin().read_line(&mut guess)
+        io::stdin()
+            .read_line(&mut guess)
             .expect("Failed to read line");
 
         let guess: u32 = match guess.trim().parse() {
@@ -48,20 +51,20 @@ fn main() {
 
         println!("You guessed: {}", guess);
 
-        match guess.cmp(&secret_number) {
+        match guess.cmp(&random_number) {
             Ordering::Less => {
                 println!("Too small!");
-                tries = tries +1;
+                tries += 1;
             }
             Ordering::Greater => {
                 println!("Too big!");
-                tries = tries +1;
+                tries += 1;
             }
 
             Ordering::Equal => {
-                tries = tries +1;
+                tries += 1;
                 println!("You win!");
-                println!("You tried: {} times.", tries);
+                println!("You tried: {} times.", &tries);
                 break;
             }
         }
